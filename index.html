@@ -1,91 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Happy Birthday 🌸</title>
+<meta charset="UTF-8">
+<title>Happy Birthday princess 🌸</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fff0f5;
-      text-align: center;
-      padding: 30px;
-    }
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff0f5;
+    text-align: center;
+    padding: 30px;
+  }
 
-    h1 {
-      color: #ff4d6d;
-    }
+  h1 {
+    color: #ff4d6d;
+  }
 
-    img {
-      width: 240px;
-      margin: 10px;
-      border-radius: 14px;
-    }
+  .photos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 
-    button {
-      padding: 12px 22px;
-      font-size: 16px;
-      border-radius: 12px;
-      border: none;
-      background: #ff6f91;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
-    }
+  img {
+    width: 220px;
+    border-radius: 14px;
+  }
 
-    /* Hidden message */
-    #secret {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 1.2s ease;
-      margin-top: 25px;
-      color: #444;
-      font-size: 18px;
-    }
+  button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    background: #ff6f91;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+  }
 
-    #secret.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  #secret {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s ease;
+    margin-top: 25px;
+    font-size: 18px;
+    color: #444;
+  }
+
+  #secret.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 </head>
 
 <body>
 
-  <h1>Happy Birthday 🎂</h1>
-  <p>I made this quietly, just for you.</p>
+<h1>Happy Birthday 🎂</h1>
+<p>Hey,
 
-  <img src="photo1.jpg">
-  <img src="photo2.jpg">
+Today matters because you were born.
+I hope this year gives you
+calm mornings, kind people like me 
+and way less overthinking
+and reasons to smile.
+hope you heal from your childhood trauma, 
+jate ektu attention pressure mone na hoy,
+khushi tak princess
 
-  <br>
 
-  <button onclick="playMusic()">🎵 Play music</button>
+Just wishing you a genuinely
+happy birthday 🙂.</p>
 
-  <div id="secret">
-    🌙 Some feelings don’t need loud words.  
-    They live better inside moments.
-  </div>
+<button id="playBtn">🎵 don't click👻 </button>
 
-  <audio id="song">
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<div id="secret">
+  🌙 Some feelings don’t need loud words.  
+  They live better inside moments.
+  happy birthday again 🙃
+</div>
 
-  <script>
-    let played = false;
+<audio id="song" preload="auto">
+  <source src="./music.mp3" type="audio/mpeg">
+</audio>
 
-    function playMusic() {
-      const audio = document.getElementById("song");
-      const secret = document.getElementById("secret");
+<script>
+  const btn = document.getElementById("playBtn");
+  const audio = document.getElementById("song");
+  const secret = document.getElementById("secret");
 
-      audio.play();
-
-      if (!played) {
-        secret.classList.add("show");
-        played = true;
-      }
-    }
-  </script>
+  btn.addEventListener("click", () => {
+    audio.play().then(() => {
+      secret.classList.add("show");
+    }).catch(() => {
+      alert("Tap once more to allow music 🎧");
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -14,6 +14,12 @@
 
   h1 {
     color: #ff4d6d;
+    font-size: 34px;
+  }
+
+  p {
+    color: #444;
+    font-size: 16px;
   }
 
   .photos {
@@ -21,6 +27,7 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
+    margin-top: 20px;
   }
 
   img {
@@ -29,78 +36,102 @@
   }
 
   button {
-    padding: 12px 24px;
+    padding: 12px 28px;
     font-size: 16px;
-    border-radius: 12px;
+    border-radius: 18px;
     border: none;
     background: #ff6f91;
     color: white;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 30px;
   }
 
-  #secret {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 1.2s ease;
-    margin-top: 25px;
-    font-size: 18px;
+  #typewriter {
+    margin-top: 35px;
+    font-size: 17px;
     color: #444;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    white-space: pre-line;
   }
 
-  #secret.show {
+  #afterMessage {
+    opacity: 0;
+    margin-top: 30px;
+    font-size: 16px;
+    color: #555;
+    transition: opacity 1.8s ease;
+    white-space: pre-line;
+  }
+
+  #afterMessage.show {
     opacity: 1;
-    transform: translateY(0);
   }
 </style>
 </head>
 
 <body>
 
-<h1>Happy Birthday 🎂</h1>
-<p>Hey,
+<h1>Happy Birthday princess 🌸</h1>
+<p>I made this quietly, just for you.</p>
+
+<div class="photos">
+  <img src="photo1.jpg" alt="memory one">
+  <img src="photo2.jpg" alt="memory two">
+</div>
+
+<button id="revealBtn">don’t click</button>
+
+<div id="typewriter"></div>
+
+<div id="afterMessage">
+🌙 Some feelings don’t need loud words.  
+They live better inside moments.  
+
+happy birthday again 🙃
+</div>
+
+<script>
+  const text = `Hey,
 
 Today matters because you were born.
 I hope this year gives you
-calm mornings, kind people like me 
+calm mornings, kind people like me
 and way less overthinking
 and reasons to smile.
-hope you heal from your childhood trauma, 
+
+hope you heal from your childhood trauma,
 jate ektu attention pressure mone na hoy,
 khushi tak princess
 
-
 Just wishing you a genuinely
-happy birthday 🙂.</p>
+happy birthday 🙂`;
 
-<div class="photos">
-  <img src="./photo1.jpg">
-  <img src="./photo2.jpg">
-</div>
+  const target = document.getElementById("typewriter");
+  const btn = document.getElementById("revealBtn");
+  const after = document.getElementById("afterMessage");
 
-<button id="playBtn">🎵 don't click👻 </button>
-
-<div id="secret">
-  🌙 Some feelings don’t need loud words.  
-  They live better inside moments.
-  happy birthday again 🙃
-</div>
-
-<audio id="song" preload="auto">
-  <source src="./music.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-  const btn = document.getElementById("playBtn");
-  const audio = document.getElementById("song");
-  const secret = document.getElementById("secret");
+  let index = 0;
+  let started = false;
 
   btn.addEventListener("click", () => {
-    audio.play().then(() => {
-      secret.classList.add("show");
-    }).catch(() => {
-      alert("Tap once more to allow music 🎧");
-    });
+    if (started) return;
+    started = true;
+    btn.style.display = "none";
+
+    const interval = setInterval(() => {
+      target.textContent += text.charAt(index);
+      index++;
+
+      if (index >= text.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          after.classList.add("show");
+        }, 800);
+      }
+    }, 40);
   });
 </script>
 

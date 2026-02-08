@@ -1,173 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Happy Birthday</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Happy Birthday 🌸</title>
 
-<style>
-  body {
-    background: linear-gradient(135deg, #0f172a, #020617);
-    color: #e5e7eb;
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-  }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff0f5;
+      text-align: center;
+      padding: 30px;
+    }
 
-  .card {
-    max-width: 600px;
-    width: 100%;
-    padding: 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.06);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    animation: fadeIn 2s ease;
-  }
+    h1 {
+      color: #ff4d6d;
+    }
 
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    cursor: pointer;
-  }
+    img {
+      width: 240px;
+      margin: 10px;
+      border-radius: 14px;
+    }
 
-  #text {
-    font-size: 18px;
-    line-height: 1.7;
-    white-space: pre-line;
-    min-height: 150px;
-  }
+    button {
+      padding: 12px 22px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: none;
+      background: #ff6f91;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
 
-  .photos {
-    margin-top: 25px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
+    /* Hidden message */
+    #secret {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1.2s ease;
+      margin-top: 25px;
+      color: #444;
+      font-size: 18px;
+    }
 
-  .photos img {
-    width: 100%;
-    border-radius: 12px;
-    object-fit: cover;
-  }
-
-  button {
-    margin-top: 20px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 999px;
-    background: #38bdf8;
-    color: #020617;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-  }
-
-  button:hover {
-    background: #0ea5e9;
-  }
-
-  #musicSecret {
-    display: none;
-    margin-top: 15px;
-    font-size: 15px;
-    opacity: 0.75;
-    text-align: center;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-</style>
+    #secret.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h1 id="title">🎉 Happy Birthday, Krittika 🎂</h1>
+  <h1>Happy Birthday 🎂</h1>
+  <p>I made this quietly, just for you.</p>
 
-  <div id="text"></div>
+  <img src="photo1.jpg">
+  <img src="photo2.jpg">
 
-  <button id="musicBtn" onclick="handleMusic()">
-    Tap for a little magic ✨
-  </button>
+  <br>
 
-  <p id="musicSecret">
-    Happy birthday again 🙂
-  </p>
+  <button onclick="playMusic()">🎵 Play music</button>
 
-  <div class="photos">
-    <img src="photo1.jpg" alt="">
-    <img src="photo2.jpg" alt="">
+  <div id="secret">
+    🌙 Some feelings don’t need loud words.  
+    They live better inside moments.
   </div>
-</div>
 
-<audio id="bgm" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+  <audio id="song">
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-<!--
-If you’re reading this,
-I hope today made you smile.
-Happy Birthday Princess 🙂
--->
+  <script>
+    let played = false;
 
-<script>
-const message = `
-Hey,
+    function playMusic() {
+      const audio = document.getElementById("song");
+      const secret = document.getElementById("secret");
 
-Today matters because you were born.
-I hope this year gives you
-calm mornings, kind people like me 
-and way less overthinking
-and reasons to smile.
-hope you heal from your childhood trauma, 
-jate ektu attention pressure mone na hoy,
-khushi thak princess
+      audio.play();
 
-
-Just wishing you a genuinely
-happy birthday 🙂
-
-— Koushik
-`;
-
-let i = 0;
-const speed = 40;
-
-function typeWriter() {
-  if (i < message.length) {
-    document.getElementById("text").innerHTML += message.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
-}
-
-typeWriter();
-
-let musicClicks = 0;
-
-function handleMusic() {
-  const music = document.getElementById("bgm");
-  const secret = document.getElementById("musicSecret");
-
-  musicClicks++;
-
-  if (musicClicks === 1) {
-    music.play();
-  }
-
-  if (musicClicks === 2) {
-    secret.style.display = "block";
-    secret.style.opacity = 0;
-    setTimeout(() => secret.style.opacity = 0.75, 100);
-  }
-}
-</script>
+      if (!played) {
+        secret.classList.add("show");
+        played = true;
+      }
+    }
+  </script>
 
 </body>
 </html>

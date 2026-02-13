@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>clivk korbi na 🙃</title>
+<title>Click korbi na 🙃</title>
 
 <style>
 body{
@@ -74,8 +74,11 @@ button:hover{
     <!-- SCREEN 1 -->
     <div id="screen1">
         <h2>⚠ DO NOT CLICK ⚠</h2>
-        <button onclick="startGame()">I knewyou wwouldn't listen. I kow you better tha you think🙂‍↔️.
-        .... and tats your first itake</button>
+        <button onclick="startGame()">
+            I knew you wouldn't listen.  
+            I know you better than you think 🙂‍↔️  
+            ...and that's your first mistake.
+        </button>
     </div>
 
     <!-- SCREEN 2 -->
@@ -93,15 +96,15 @@ button:hover{
     </div>
 
     <!-- SCREEN 4 -->
-   <div id="screen4" class="hidden">
-    <h3>Unlock your birthday wish 🔐</h3>
-    <p>Your smile × 100 + Your attitude × 1000 − Your little raag = ?</p>
-    <p id="errorMsg" style="color:#ff4d6d;"></p>
+    <div id="screen4" class="hidden">
+        <h3>Unlock your birthday wish 🔐</h3>
+        <p>Your smile × 100 + Your attitude × 1000 − Your little raag = ?</p>
+        <p id="errorMsg" style="color:#ff4d6d;"></p>
 
-    <button onclick="wrongAnswer()">Error 404 : too cute to calculaye</button>
-    <button onclick="wrongAnswer()">Too much</button>
-    <button onclick="finalMessage()">My favourite human being</button>
-</div>
+        <button onclick="wrongAnswer()">Error 404: Too cute to calculate</button>
+        <button onclick="wrongAnswer()">Too much</button>
+        <button onclick="finalMessage()">My favourite human being</button>
+    </div>
 
     <!-- SCREEN 5 -->
     <div id="screen5" class="hidden">
@@ -160,6 +163,11 @@ function goToPuzzle(){
     document.getElementById("screen4").classList.remove("hidden");
 }
 
+function wrongAnswer(){
+    let error = document.getElementById("errorMsg");
+    error.innerText = "❌ Wrong answer. Try again, genius 😌";
+}
+
 function finalMessage(){
     document.getElementById("screen4").classList.add("hidden");
     document.getElementById("screen5").classList.remove("hidden");
@@ -171,7 +179,8 @@ function finalMessage(){
         "Some people are unforgettable.\n\n" +
         "And then there's you... princess\n\n" +
         "Happy Birthday Krittika 🌙\n\n" +
-        "Don't change. The world adjusted. raag o ko korte hobe na , adjust kore nebo 😌",
+        "Don't change.\n" +
+        "Raag o korte hobe na, adjust kore nebo 😌",
         "finalText",
         function(){
             let photo = document.getElementById("herPhoto");

@@ -1,70 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Click korbi na 🙃</title>
+    <title>Do Not Click</title>
+    <style>
+        body {
+            background: black;
+            color: white;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
 
-<style>
-body{
-    margin:0;
-    background:#0f0f14;
-    color:white;
-    font-family: 'Courier New', monospace;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    text-align:center;
-    overflow:hidden;
-}
+        .container {
+            width: 90%;
+            max-width: 500px;
+        }
 
-.container{
-    max-width:600px;
-    padding:20px;
-}
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background: crimson;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-button{
-    padding:12px 25px;
-    margin:10px;
-    border:none;
-    border-radius:25px;
-    background:#ff4d6d;
-    color:white;
-    font-size:16px;
-    cursor:pointer;
-    transition:0.3s;
-}
+        button:hover {
+            background: darkred;
+        }
 
-button:hover{
-    background:#ff1f4b;
-    transform:scale(1.05);
-}
+        .hidden {
+            display: none;
+        }
 
-.hidden{
-    display:none;
-}
-
-#typeText, #finalText{
-    min-height:120px;
-    font-size:18px;
-    white-space:pre-line;
-}
-
-.photo{
-    width:220px;
-    margin-top:20px;
-    border-radius:18px;
-    opacity:0;
-    transform:scale(0.9);
-    transition:1.5s ease;
-    box-shadow:0 0 25px rgba(255,77,109,0.4);
-}
-
-.showPhoto{
-    opacity:1;
-    transform:scale(1);
-}
-</style>
+        .error {
+            color: red;
+            margin-top: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -74,122 +51,70 @@ button:hover{
     <!-- SCREEN 1 -->
     <div id="screen1">
         <h2>⚠ DO NOT CLICK ⚠</h2>
-        <button onclick="startGame()">
-            I knew you wouldn't listen.  
-            I know you better than you think 🙂‍↔️  
-            ...and that's your first mistake.
-        </button>
+        <button onclick="startGame()">DO NOT CLICK</button>
     </div>
 
     <!-- SCREEN 2 -->
     <div id="screen2" class="hidden">
         <div id="typeText"></div>
-        <button id="mistakeBtn" class="hidden" onclick="showChoices()">What mistake?</button>
+        <button id="continueBtn" class="hidden" onclick="showChoices()">Continue</button>
     </div>
 
     <!-- SCREEN 3 -->
     <div id="screen3" class="hidden">
-        <h3>Choose your mistake 😌</h3>
-        <button onclick="goToPuzzle()">Being born today</button>
-        <button onclick="goToPuzzle()">Clicking that button</button>
-        <button onclick="goToPuzzle()">Trusting me</button>
+        <h3>Was that really a mistake?</h3>
+
+        <button onclick="wrongAnswer()">Yes</button>
+        <button onclick="correctAnswer()">No</button>
+
+        <div id="errorMsg" class="error hidden">
+            Wrong answer. I knew you’d choose that 🙂
+        </div>
     </div>
 
-    <!-- SCREEN 4 -->
-    <div id="screen4" class="hidden">
-        <h3>Unlock your birthday wish 🔐</h3>
-        <p>Your smile × 100 + Your attitude × 1000 − Your little raag = ?</p>
-        <p id="errorMsg" style="color:#ff4d6d;"></p>
-
-        <button onclick="wrongAnswer()">Error 404: Too cute to calculate</button>
-        <button onclick="wrongAnswer()">Too much</button>
-        <button onclick="finalMessage()">My favourite human being</button>
-    </div>
-
-    <!-- SCREEN 5 -->
-    <div id="screen5" class="hidden">
-        <div id="finalText"></div>
-        <img id="herPhoto" src="her.jpg" class="hidden photo">
+    <!-- FINAL SCREEN -->
+    <div id="finalScreen" class="hidden">
+        <h2>You passed the test 😌</h2>
     </div>
 
 </div>
 
-<audio id="bgMusic" src="music.mp3"></audio>
-
 <script>
 
-function typeWriter(text, elementId, callback){
-    let i = 0;
-    let speed = 40;
-    let element = document.getElementById(elementId);
-    element.innerHTML = "";
+const message = `I knew you wouldn't listen.
+I know you better than you think 🙂
+...and that's your first mistake.`;
 
-    function typing(){
-        if(i < text.length){
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typing, speed);
-        } else {
-            if(callback) callback();
-        }
-    }
-    typing();
-}
+let index = 0;
 
-function startGame(){
+function startGame() {
     document.getElementById("screen1").classList.add("hidden");
     document.getElementById("screen2").classList.remove("hidden");
-
-    let music = document.getElementById("bgMusic");
-    music.volume = 0.4;
-    music.play();
-
-    typeWriter(
-        "I knew you wouldn't listen.\n\nThat's your first mistake today.",
-        "typeText",
-        function(){
-            document.getElementById("mistakeBtn").classList.remove("hidden");
-        }
-    );
+    typeEffect();
 }
 
-function showChoices(){
+function typeEffect() {
+    if (index < message.length) {
+        document.getElementById("typeText").innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeEffect, 40);
+    } else {
+        document.getElementById("continueBtn").classList.remove("hidden");
+    }
+}
+
+function showChoices() {
     document.getElementById("screen2").classList.add("hidden");
     document.getElementById("screen3").classList.remove("hidden");
 }
 
-function goToPuzzle(){
+function wrongAnswer() {
+    document.getElementById("errorMsg").classList.remove("hidden");
+}
+
+function correctAnswer() {
     document.getElementById("screen3").classList.add("hidden");
-    document.getElementById("screen4").classList.remove("hidden");
-}
-
-function wrongAnswer(){
-    let error = document.getElementById("errorMsg");
-    error.innerText = "❌ Wrong answer. Try again, genius 😌";
-}
-
-function finalMessage(){
-    document.getElementById("screen4").classList.add("hidden");
-    document.getElementById("screen5").classList.remove("hidden");
-
-    typeWriter(
-        "Correct answer: All of them.\n\n" +
-        "Because now the world has to deal with you.\n\n" +
-        "Some people are special.\n" +
-        "Some people are unforgettable.\n\n" +
-        "And then there's you... princess\n\n" +
-        "Happy Birthday Krittika 🌙\n\n" +
-        "Don't change.\n" +
-        "Raag o korte hobe na, adjust kore nebo 😌",
-        "finalText",
-        function(){
-            let photo = document.getElementById("herPhoto");
-            photo.classList.remove("hidden");
-            setTimeout(()=>{
-                photo.classList.add("showPhoto");
-            },200);
-        }
-    );
+    document.getElementById("finalScreen").classList.remove("hidden");
 }
 
 </script>

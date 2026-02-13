@@ -1,139 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday princess 🌸</title>
+<title>clivk korbi na 🙃</title>
 
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #fff0f5;
-    text-align: center;
-    padding: 30px;
-  }
+body{
+    margin:0;
+    background:#0f0f14;
+    color:white;
+    font-family: 'Courier New', monospace;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
+    overflow:hidden;
+}
 
-  h1 {
-    color: #ff4d6d;
-    font-size: 34px;
-  }
+.container{
+    max-width:600px;
+    padding:20px;
+}
 
-  p {
-    color: #444;
-    font-size: 16px;
-  }
+button{
+    padding:12px 25px;
+    margin:10px;
+    border:none;
+    border-radius:25px;
+    background:#ff4d6d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
 
-  .photos {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-  }
+button:hover{
+    background:#ff1f4b;
+    transform:scale(1.05);
+}
 
-  img {
-    width: 220px;
-    border-radius: 14px;
-  }
+.hidden{
+    display:none;
+}
 
-  button {
-    padding: 12px 28px;
-    font-size: 16px;
-    border-radius: 18px;
-    border: none;
-    background: #ff6f91;
-    color: white;
-    cursor: pointer;
-    margin-top: 30px;
-  }
+#typeText, #finalText{
+    min-height:120px;
+    font-size:18px;
+    white-space:pre-line;
+}
 
-  #typewriter {
-    margin-top: 35px;
-    font-size: 17px;
-    color: #444;
-    max-width: 520px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-    white-space: pre-line;
-  }
+.photo{
+    width:220px;
+    margin-top:20px;
+    border-radius:18px;
+    opacity:0;
+    transform:scale(0.9);
+    transition:1.5s ease;
+    box-shadow:0 0 25px rgba(255,77,109,0.4);
+}
 
-  #afterMessage {
-    opacity: 0;
-    margin-top: 30px;
-    font-size: 16px;
-    color: #555;
-    transition: opacity 1.8s ease;
-    white-space: pre-line;
-  }
-
-  #afterMessage.show {
-    opacity: 1;
-  }
+.showPhoto{
+    opacity:1;
+    transform:scale(1);
+}
 </style>
 </head>
 
 <body>
 
-<h1>Happy Birthday princess 🌸</h1>
-<p> heyyyyyy.</p>
+<div class="container">
 
-<div class="photos">
-  <img src="photo1.jpg" alt="memory one">
-  <img src="photo2.jpg" alt="memory two">
+    <!-- SCREEN 1 -->
+    <div id="screen1">
+        <h2>⚠ DO NOT CLICK ⚠</h2>
+        <button onclick="startGame()">I knewyou wwouldn't listen. I kow you better tha you think🙂‍↔️.
+        .... and tats your first itake</button>
+    </div>
+
+    <!-- SCREEN 2 -->
+    <div id="screen2" class="hidden">
+        <div id="typeText"></div>
+        <button id="mistakeBtn" class="hidden" onclick="showChoices()">What mistake?</button>
+    </div>
+
+    <!-- SCREEN 3 -->
+    <div id="screen3" class="hidden">
+        <h3>Choose your mistake 😌</h3>
+        <button onclick="goToPuzzle()">Being born today</button>
+        <button onclick="goToPuzzle()">Clicking that button</button>
+        <button onclick="goToPuzzle()">Trusting me</button>
+    </div>
+
+    <!-- SCREEN 4 -->
+   <div id="screen4" class="hidden">
+    <h3>Unlock your birthday wish 🔐</h3>
+    <p>Your smile × 100 + Your attitude × 1000 − Your little raag = ?</p>
+    <p id="errorMsg" style="color:#ff4d6d;"></p>
+
+    <button onclick="wrongAnswer()">Error 404 : too cute to calculaye</button>
+    <button onclick="wrongAnswer()">Too much</button>
+    <button onclick="finalMessage()">My favourite human being</button>
 </div>
 
-<button id="revealBtn">don’t click</button>
+    <!-- SCREEN 5 -->
+    <div id="screen5" class="hidden">
+        <div id="finalText"></div>
+        <img id="herPhoto" src="her.jpg" class="hidden photo">
+    </div>
 
-<div id="typewriter"></div>
-
-<div id="afterMessage">
-  Not everything felt needs to be explained
-
-happy birthday again 🙃
 </div>
+
+<audio id="bgMusic" src="music.mp3"></audio>
 
 <script>
-  const text = `Hey,
 
-Today matters because you were born.
-I hope this year gives you
-calm mornings, kind people like me🙂‍↕️
-.
+function typeWriter(text, elementId, callback){
+    let i = 0;
+    let speed = 40;
+    let element = document.getElementById(elementId);
+    element.innerHTML = "";
 
-and way less overthinking
-and reasons to smile.
+    function typing(){
+        if(i < text.length){
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        } else {
+            if(callback) callback();
+        }
+    }
+    typing();
+}
 
-hope you heal from your childhood trauma,
-jate ektu attention pressure mone na hoy,
-khushi tak princess
+function startGame(){
+    document.getElementById("screen1").classList.add("hidden");
+    document.getElementById("screen2").classList.remove("hidden");
 
-Just wishing you a genuinely
-happy birthday 🙂`;
+    let music = document.getElementById("bgMusic");
+    music.volume = 0.4;
+    music.play();
 
-  const target = document.getElementById("typewriter");
-  const btn = document.getElementById("revealBtn");
-  const after = document.getElementById("afterMessage");
+    typeWriter(
+        "I knew you wouldn't listen.\n\nThat's your first mistake today.",
+        "typeText",
+        function(){
+            document.getElementById("mistakeBtn").classList.remove("hidden");
+        }
+    );
+}
 
-  let index = 0;
-  let started = false;
+function showChoices(){
+    document.getElementById("screen2").classList.add("hidden");
+    document.getElementById("screen3").classList.remove("hidden");
+}
 
-  btn.addEventListener("click", () => {
-    if (started) return;
-    started = true;
-    btn.style.display = "none";
+function goToPuzzle(){
+    document.getElementById("screen3").classList.add("hidden");
+    document.getElementById("screen4").classList.remove("hidden");
+}
 
-    const interval = setInterval(() => {
-      target.textContent += text.charAt(index);
-      index++;
+function finalMessage(){
+    document.getElementById("screen4").classList.add("hidden");
+    document.getElementById("screen5").classList.remove("hidden");
 
-      if (index >= text.length) {
-        clearInterval(interval);
-        setTimeout(() => {
-          after.classList.add("show");
-        }, 800);
-      }
-    }, 40);
-  });
+    typeWriter(
+        "Correct answer: All of them.\n\n" +
+        "Because now the world has to deal with you.\n\n" +
+        "Some people are special.\n" +
+        "Some people are unforgettable.\n\n" +
+        "And then there's you... princess\n\n" +
+        "Happy Birthday Krittika 🌙\n\n" +
+        "Don't change. The world adjusted. raag o ko korte hobe na , adjust kore nebo 😌",
+        "finalText",
+        function(){
+            let photo = document.getElementById("herPhoto");
+            photo.classList.remove("hidden");
+            setTimeout(()=>{
+                photo.classList.add("showPhoto");
+            },200);
+        }
+    );
+}
+
 </script>
 
 </body>

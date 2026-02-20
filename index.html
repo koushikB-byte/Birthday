@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy birthday princess🌼</title>
+<title>Happy birthday princess 🌼</title>
 
 <style>
 body{
@@ -17,11 +17,40 @@ body{
     height:100vh;
     text-align:center;
     overflow:hidden;
+    position:relative;
+}
+
+/* Animated glow background */
+body::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle, rgba(255,77,109,0.25), transparent 70%);
+    animation:glowMove 8s ease-in-out infinite alternate;
+    z-index:0;
+}
+
+@keyframes glowMove{
+    from{ transform:translate(-20%, -20%) scale(1);}
+    to{ transform:translate(20%, 20%) scale(1.2);}
 }
 
 .container{
     max-width:600px;
     padding:20px;
+    position:relative;
+    z-index:1;
+}
+
+/* Fade animation for screens */
+.fade{
+    animation:fadeIn 0.6s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
 }
 
 button{
@@ -34,11 +63,23 @@ button{
     font-size:16px;
     cursor:pointer;
     transition:0.3s;
+    box-shadow:0 0 15px rgba(255,77,109,0.4);
 }
 
 button:hover{
     background:#ff1f4b;
     transform:scale(1.05);
+}
+
+/* subtle pulse */
+button:first-of-type{
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{box-shadow:0 0 10px rgba(255,77,109,0.4);}
+    50%{box-shadow:0 0 25px rgba(255,77,109,0.8);}
+    100%{box-shadow:0 0 10px rgba(255,77,109,0.4);}
 }
 
 .hidden{
@@ -73,7 +114,7 @@ button:hover{
 <div class="container">
 
     <!-- SCREEN 1 -->
-    <div id="screen1">
+    <div id="screen1" class="fade">
         <h2>Happy Birthday Princess 🌼</h2>
         <button onclick="startGame()">Click korbi na 🙃</button>
     </div>
@@ -93,7 +134,7 @@ button:hover{
         <button onclick="chooseOption('nomistake')">Ami mistake kori na 🙂‍↔️</button>
     </div>
 
-    <!-- SCREEN 3.5 (Response Screen) -->
+    <!-- RESPONSE SCREEN -->
     <div id="screen3_5" class="hidden">
         <div id="choiceResponse"></div>
     </div>
@@ -121,6 +162,13 @@ button:hover{
 
 <script>
 
+function showScreen(current, next){
+    document.getElementById(current).classList.add("hidden");
+    let nextScreen = document.getElementById(next);
+    nextScreen.classList.remove("hidden");
+    nextScreen.classList.add("fade");
+}
+
 function typeWriter(text, elementId, callback){
     let i = 0;
     let speed = 40;
@@ -140,8 +188,7 @@ function typeWriter(text, elementId, callback){
 }
 
 function startGame(){
-    document.getElementById("screen1").classList.add("hidden");
-    document.getElementById("screen2").classList.remove("hidden");
+    showScreen("screen1","screen2");
 
     let music = document.getElementById("bgMusic");
     music.volume = 0.4;
@@ -157,14 +204,11 @@ function startGame(){
 }
 
 function showChoices(){
-    document.getElementById("screen2").classList.add("hidden");
-    document.getElementById("screen3").classList.remove("hidden");
+    showScreen("screen2","screen3");
 }
 
-/* NEW FUNCTION FOR DIFFERENT RESPONSES */
 function chooseOption(option){
-    document.getElementById("screen3").classList.add("hidden");
-    document.getElementById("screen3_5").classList.remove("hidden");
+    showScreen("screen3","screen3_5");
 
     let message = "";
 
@@ -180,20 +224,17 @@ function chooseOption(option){
 
     typeWriter(message, "choiceResponse", function(){
         setTimeout(function(){
-            document.getElementById("screen3_5").classList.add("hidden");
-            document.getElementById("screen4").classList.remove("hidden");
-        }, 1500);
+            showScreen("screen3_5","screen4");
+        },1500);
     });
 }
 
 function wrongAnswer(){
-    let error = document.getElementById("errorMsg");
-    error.innerText = "❌ Wrong answer. Try again, genius 😌";
+    document.getElementById("errorMsg").innerText = "❌ Wrong answer. Try again, genius 😌";
 }
 
 function finalMessage(){
-    document.getElementById("screen4").classList.add("hidden");
-    document.getElementById("screen5").classList.remove("hidden");
+    showScreen("screen4","screen5");
 
     typeWriter(
         "That's right my favourite human being.\n\n" +
@@ -201,16 +242,14 @@ function finalMessage(){
         "But still somehow makes it adorable.\n" +
         "Still my favourite.\n\n" +
         "Khushi thak bujhli to.\n\n" +
-        "Happy Birthday Krittika 🌙\n\n" +
+        "Happy Birthday Krittika 🫶\n\n" +
         "Don't change.\n" +
         "The right people will value you exactly as you are 😌",
         "finalText",
         function(){
             let photo = document.getElementById("herPhoto");
             photo.classList.remove("hidden");
-            setTimeout(()=>{
-                photo.classList.add("showPhoto");
-            },200);
+            setTimeout(()=> photo.classList.add("showPhoto"),200);
         }
     );
 }

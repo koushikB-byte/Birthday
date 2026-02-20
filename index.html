@@ -74,19 +74,19 @@ button:hover{
 
     <!-- SCREEN 1 -->
     <div id="screen1">
-        <h2>⚠ DO NOT CLICK ⚠</h2>
+        <h2>Happy Birthday Princess 🌼</h2>
         <button onclick="startGame()">Click korbi na 🙃</button>
     </div>
 
     <!-- SCREEN 2 -->
     <div id="screen2" class="hidden">
         <div id="typeText"></div>
-        <button id="mistakeBtn" class="hidden" onclick="showChoices()">Mistake kiser 🤔</button>
+        <button id="mistakeBtn" class="hidden" onclick="showChoices()">dekhbi ??</button>
     </div>
 
     <!-- SCREEN 3 -->
     <div id="screen3" class="hidden">
-        <h3> Mistake ?? 😌</h3>
+        <h3>  at first you have to choose your mistake😌</h3>
         <button onclick="goToPuzzle()">Being born cute</button>
         <button onclick="goToPuzzle()">Being freindd with me</button>
         <button onclick="goToPuzzle()">Ami mistake kori na 🙂‍↔️</button>
@@ -142,7 +142,7 @@ function startGame(){
     music.play();
 
     typeWriter(
-        "I knew you wouldn't listen. i know you more than you think🙂‍↕️\n\n and That's your first mistake today.",
+        "I was boredand made this🙃\n\n Overthink koris na.",
         "typeText",
         function(){
             document.getElementById("mistakeBtn").classList.remove("hidden");
@@ -177,7 +177,7 @@ function finalMessage(){
         "Khushi thak bujhli to\n\n" +
         "Happy Birthday Krittika 🌙\n\n" +
         "Don't change.\n" +
-        "Don't adjust,sobai adjust kore nebe, amio 😌",
+        "Don't adjust,dont change,right people will value you exactly as you are 😌",
         "finalText",
         function(){
             let photo = document.getElementById("herPhoto");

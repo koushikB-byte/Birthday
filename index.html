@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy birthday princess</title>
+<title>Happy birthday princess🌼</title>
 
 <style>
 body{
@@ -45,7 +45,7 @@ button:hover{
     display:none;
 }
 
-#typeText, #finalText{
+#typeText, #finalText, #choiceResponse{
     min-height:120px;
     font-size:20px;
     white-space:pre-line;
@@ -86,10 +86,16 @@ button:hover{
 
     <!-- SCREEN 3 -->
     <div id="screen3" class="hidden">
-        <h3>  at first you have to choose your mistake😌</h3>
-        <button onclick="goToPuzzle()">Being born cute</button>
-        <button onclick="goToPuzzle()">Being freindd with me</button>
-        <button onclick="goToPuzzle()">Ami mistake kori na 🙂‍↔️</button>
+        <h3>at first you have to choose your mistake 😌</h3>
+
+        <button onclick="chooseOption('cute')">Being born cute</button>
+        <button onclick="chooseOption('friends')">Being friends with me</button>
+        <button onclick="chooseOption('nomistake')">Ami mistake kori na 🙂‍↔️</button>
+    </div>
+
+    <!-- SCREEN 3.5 (Response Screen) -->
+    <div id="screen3_5" class="hidden">
+        <div id="choiceResponse"></div>
     </div>
 
     <!-- SCREEN 4 -->
@@ -142,7 +148,7 @@ function startGame(){
     music.play();
 
     typeWriter(
-        "I was boredand made this🙃\n\n Overthink koris na.",
+        "I was bored and made this 🙃\n\nOverthink koris na.",
         "typeText",
         function(){
             document.getElementById("mistakeBtn").classList.remove("hidden");
@@ -155,9 +161,29 @@ function showChoices(){
     document.getElementById("screen3").classList.remove("hidden");
 }
 
-function goToPuzzle(){
+/* NEW FUNCTION FOR DIFFERENT RESPONSES */
+function chooseOption(option){
     document.getElementById("screen3").classList.add("hidden");
-    document.getElementById("screen4").classList.remove("hidden");
+    document.getElementById("screen3_5").classList.remove("hidden");
+
+    let message = "";
+
+    if(option === "cute"){
+        message = "Exactly 😌\nUniverse er fault, amar na.";
+    }
+    else if(option === "friends"){
+        message = "Eta mistake na...\nEta upgrade 😉";
+    }
+    else if(option === "nomistake"){
+        message = "Confidence level 1000 😌\nBhalo laglo.";
+    }
+
+    typeWriter(message, "choiceResponse", function(){
+        setTimeout(function(){
+            document.getElementById("screen3_5").classList.add("hidden");
+            document.getElementById("screen4").classList.remove("hidden");
+        }, 1500);
+    });
 }
 
 function wrongAnswer(){
@@ -171,13 +197,13 @@ function finalMessage(){
 
     typeWriter(
         "That's right my favourite human being.\n\n" +
-        "The one who overthinks a little , gets angry sometimes.\n\n" +
+        "The one who overthinks a little, gets angry sometimes.\n\n" +
         "But still somehow makes it adorable.\n" +
         "Still my favourite.\n\n" +
-        "Khushi thak bujhli to\n\n" +
+        "Khushi thak bujhli to.\n\n" +
         "Happy Birthday Krittika 🌙\n\n" +
         "Don't change.\n" +
-        "Don't adjust,dont change,right people will value you exactly as you are 😌",
+        "The right people will value you exactly as you are 😌",
         "finalText",
         function(){
             let photo = document.getElementById("herPhoto");
